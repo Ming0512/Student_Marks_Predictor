@@ -34,6 +34,49 @@ class ModelTrainer:
                 test_array[:,:-1],
                 test_array[:,-1],
             )
+            params = {
+                "Decision Tree": {
+                    'criterion': ['squared_error', 'friedman_mse'],
+                    'splitter': ['best', 'random'],
+                    'max_depth': [None, 5, 10, 20]
+                },
+
+                "Random Forest": {
+                    'n_estimators': [50, 100, 200],
+                    'max_depth': [None, 10, 20],
+                    'criterion': ['squared_error']
+                },
+
+                "Gradient Boosting": {
+                    'learning_rate': [0.01, 0.1],
+                    'n_estimators': [100, 200],
+                    'max_depth': [3, 5]
+                },
+
+                "Linear Regressor": {},
+
+                "K_Neighbours Classifier": {
+                    'n_neighbors': [3, 5, 7, 9],
+                    'weights': ['uniform', 'distance']
+                },
+
+                "XGB Classifier": {
+                    'n_estimators': [100, 200],
+                    'learning_rate': [0.01, 0.1],
+                    'max_depth': [3, 5]
+                },
+
+                "CatBoosting Classifier": {
+                    'depth': [4, 6, 8],
+                    'learning_rate': [0.01, 0.1],
+                    'iterations': [100, 200]
+                },
+
+                "AdaBoost Classifier": {
+                    'n_estimators': [50, 100, 200],
+                    'learning_rate': [0.01, 0.1, 1]
+                }
+            }
 
             models = {
                 "Random Forest": RandomForestRegressor(),
@@ -47,7 +90,7 @@ class ModelTrainer:
             }
 
             model_report:dict = evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, 
-                                                y_test=y_test, models=models)
+                                                y_test=y_test, models=models, params=params)
             best_model_score = max(model_report.values())
             best_model_name = list(model_report.keys())[
                 list(model_report.values()).index(best_model_score)
