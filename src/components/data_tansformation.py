@@ -71,10 +71,10 @@ class DataTransformation:
             target_col_name = "math_score"
             numerical_columns = ['writing_score', 'reading_score']
 
-            input_feature_train_df = train_df.drop(columns=target_col_name, axis=1)
+            input_feature_train_df = train_df.drop(columns=target_col_name)
             target_feature_train_df = train_df[target_col_name]
 
-            input_feature_test_df = test_df.drop(columns=target_col_name, axis=1)
+            input_feature_test_df = test_df.drop(columns=target_col_name)
             target_feature_test_df = test_df[target_col_name]
 
             logging.info("Applying preprocessing object on traing and testing dataframe.")
